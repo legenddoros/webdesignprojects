@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Guestbook</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 40px auto;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+      }
+      .messages {
+        margin-top: 30px;
+        border-top: 1px solid #ccc;
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Sign my guestbook</h2>
+
+    <form class="the-form" method="POST" action="/submit">
+      <input type="text" name="username" placeholder="Your Name" required />
+      <textarea name="message" placeholder="Your message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="messages">
+      <h3>Previous Messages:</h3>
+      <ul id="message-list"></ul>
+    </div>
+
+    <script>
+      async function loadMessages() {
+        const response = await fetch("/messages");
+        const data = await response.json();
+        const list = document.getElementById("message-list");
+        list.innerHTML = "";
+
+        if (data.messages) {
+          data.messages.forEach((msg) => {
+            const li = document.createElement("li");
+            li.textContent = msg.user + ": " + msg.message;
+            list.appendChild(li);
+          });
+        }
+      }
+
+      loadMessages();
+      // Optional: refresh every 5 seconds
+      setInterval(loadMessages, 5000);
+    </script>
+  </body>
+</html>
