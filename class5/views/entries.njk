@@ -1,0 +1,11 @@
+<h1>All Entries</h1>
+
+{% for entry in entries %}
+  <div>
+    <h3>{{ entry.name }}</h3>
+    <p>{{ entry.message }}</p>
+    <hr />
+  </div>
+{% endfor %}
+
+<a href="/">Back Home</a>
