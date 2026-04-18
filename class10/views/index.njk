@@ -20,7 +20,7 @@
       <!-- add the variable in response.render) -->
         {% for post in ____ %}
         {# what is the difference between {%%} and {{ }} ? #}
-        {# A: #}
+        {# A: the first is used for logic, the second used for data, putting in variables #}
             <div class='single-post'>
                 <span> {{post.date}} </span>
                 <a href="/post/{{post._id}}"><img src='{{post.image}}'></a>
